@@ -5,39 +5,28 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HamakaNext.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HamakaNext.Controllers
 {
-    public class HomeController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class HomeController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly HmkContext _dbContext;
+
+        public HomeController (HmkContext context)
         {
-            return View();
+            _dbContext = context;
+            _dbContext.Database.EnsureCreated();
         }
 
-        public IActionResult About()
+        [HttpGet]
+        public List<User> Index()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            return _dbContext.User.ToList();
         }
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
-
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+      
     }
 }
