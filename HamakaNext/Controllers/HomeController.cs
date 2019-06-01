@@ -27,6 +27,26 @@ namespace HamakaNext.Controllers
             return _dbContext.User.ToList();
         }
 
-      
+        [HttpPost]
+        public IActionResult Create(User user)
+        {
+            _dbContext.User.Add(user);
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IActionResult Delete(User user)
+        {
+            _dbContext.User.Remove(user);
+            return Ok();
+        }
+
+        [HttpPut]
+        public IActionResult Update(User user)
+        {
+            _dbContext.User.Update(user);
+            return Ok();
+        }
+
     }
 }
