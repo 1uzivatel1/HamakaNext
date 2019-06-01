@@ -11,11 +11,11 @@ namespace HamakaNext.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class HomeController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly HmkContext _dbContext;
 
-        public HomeController (HmkContext context)
+        public UsersController (HmkContext context)
         {
             _dbContext = context;
             _dbContext.Database.EnsureCreated();
@@ -31,6 +31,7 @@ namespace HamakaNext.Controllers
         public IActionResult Create(User user)
         {
             _dbContext.User.Add(user);
+            _dbContext.SaveChanges();
             return Ok();
         }
 
@@ -38,6 +39,7 @@ namespace HamakaNext.Controllers
         public IActionResult Delete(User user)
         {
             _dbContext.User.Remove(user);
+            _dbContext.SaveChanges();
             return Ok();
         }
 
@@ -45,6 +47,7 @@ namespace HamakaNext.Controllers
         public IActionResult Update(User user)
         {
             _dbContext.User.Update(user);
+            _dbContext.SaveChanges();
             return Ok();
         }
 

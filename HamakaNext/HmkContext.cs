@@ -27,7 +27,21 @@ namespace HamakaNext
                 entity.Property(e => e.Email).IsRequired();
 
             });
+
+            modelBuilder.Entity<Book>
+            (entity =>
+            {
+                entity.HasKey(e => e.Id);
+                entity.Property(e => e.Author);
+                entity.Property(e => e.Title);
+                entity.Property(e => e.Published);
+                entity.Property(e => e.PageCount);
+                entity.HasOne(d => d.User).WithMany(d => d.Books);
+            }    
+                );
         }
+
+        public DbSet<HamakaNext.Models.Book> Book { get; set; }
     }
 
 }
